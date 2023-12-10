@@ -6,12 +6,14 @@ import time
 class DataFetcher:
     def __init__(self, base_dir='./data'):
         self.base_dir = base_dir
+        self.base_url = 'https://swapi.dev/api/'
         if not os.path.exists(self.base_dir):
             os.makedirs(self.base_dir)
 
-    def fetch_data(self, url, category):
+    def fetch_data(self, category):
         data = []
         max_retries = 5
+        url = self.base_url+category
         while url and max_retries > 0:
             try:
                 response = requests.get(url)
@@ -60,7 +62,7 @@ class Main:
 
     def run(self):
         for category in ['people', 'planets', 'starships']:
-            self.fetcher.fetch_data(f'https://swapi.dev/api/{category}/', category)
+            self.fetcher.fetch_data(category)
 
         people = self.fetcher.read_data('people')
         starships = self.fetcher.read_data('starships')
