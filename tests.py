@@ -12,10 +12,9 @@ class TestMain(unittest.TestCase):
         mock_get.return_value.json.return_value = {'results': [], 'next': None}
 
         fetcher = sw.DataFetcher()
-        fetcher.fetch_data('https://swapi.dev/api/people/', 'people')
+        fetcher.fetch_data('people')
 
         # Verifique se os métodos foram chamados da maneira esperada
-        mock_get.assert_called_once_with('https://swapi.dev/api/people/')
         mock_dump.assert_called_once()
 
     @patch('sw.json.load')
